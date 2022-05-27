@@ -15,7 +15,7 @@ def create
   if @horse.save
     render json: @horse
   else 
-    render error { error: "Unable to add Horse." }, status: 400
+    render json: { error: 'Unable to add Horse.' }, status: 400
   end
 end 
 

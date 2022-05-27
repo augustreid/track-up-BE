@@ -1,7 +1,7 @@
 class Api::V1::RidesController < ApplicationController
 
 def index 
-  @ride = ride.all
+  @rides = Ride.all
   render json: @rides
 end 
 
@@ -15,7 +15,7 @@ def create
   if @ride.save
     render json: @ride
   else 
-    render error { error: "Unable to add Ride." }, status: 400
+    render json: { error: "Unable to add Ride." }, status: 400
   end
 end 
 
