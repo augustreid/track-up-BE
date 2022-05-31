@@ -44,4 +44,6 @@ private
   params.require(:horse).permit(:name, :sex, :age, :imageUrl)
   end 
 
+  
+
 end

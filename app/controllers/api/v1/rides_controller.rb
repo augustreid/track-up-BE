@@ -1,17 +1,18 @@
 class Api::V1::RidesController < ApplicationController
+  before_action :find_horse
 
 def index 
-  @rides = Ride.all
+  @rides = @horse.rides.all
   render json: @rides
 end 
 
 def show
-  @ride = Ride.find(params[:id])
+  @ride = @horse.rides.find(params[:id])
   render json: @ride
 end
 
 def create 
-  @ride = Ride.new(ride_params)
+  @ride = @horse.rides.new(ride_params)
   if @ride.save
     render json: @ride
   else 
@@ -20,7 +21,7 @@ def create
 end 
 
 def update 
-  @ride = Ride.find(params[:id])
+  @ride = @horse.rides.find(params[:id])
   if @ride
     @ride.update(ride_params)
     render json: { message: "Ride successfully updated." }, status: 200
@@ -30,7 +31,7 @@ def update
 end
 
 def destroy
-  @ride = Ride.find(params[:id])
+  @ride = @horse.rides.find(params[:id])
   if @ride 
     @ride.destroy
     render json: { message: "Ride successfully deleted." }, status: 200
@@ -43,5 +44,9 @@ private
   def ride_params
   params.require(:ride).permit(:day, :exercise, :tack, :walk, :trot, :canter, :notes)
   end 
+
+  def find_horse
+    @horse = Horse.find(params[:horse_id])
+  end
   
 end
